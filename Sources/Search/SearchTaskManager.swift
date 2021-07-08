@@ -9,27 +9,25 @@
 import Foundation
 
 /// A `TaskManager` which executes `SearchTask`s
-class SearchTaskManager<Task>: TaskManager<Task> where Task: SearchTask {
+open class SearchTaskManager<Task>: TaskManager<Task> where Task: SearchTask {
 
     /// Search the given `search` after `throttle`
     ///
     /// - Parameters:
     ///   - search: `String` text to search
     ///   - throttle: `TimeInterval` throttle, `nil` to execute immediately
-    func search(
+    open func search(
         _ search: String,
         throttle: TimeInterval? = .defaultThrottle
     ) {
-        let task = createTask(for: search)
+        guard let task = createTask(for: search) else { return }
         super.execute(task, throttle: throttle)
     }
 
     /// Create a `Task` for `search`
     ///
     /// - Parameter search: `String`
-    // swiftlint:disable unavailable_function
-    func createTask(for search: String) -> Task {
-        fatalError("\(#function) is abstract, subclasses must implement")
+    open func createTask(for search: String) -> Task? {
+        return nil
     }
-    // swiftlint:enable unavailable_function
 }

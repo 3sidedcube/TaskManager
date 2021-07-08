@@ -9,7 +9,7 @@
 import Foundation
 
 /// A task which executes given a `String` to search
-protocol SearchTask: Task {
+public protocol SearchTask: Task {
 
     /// `String` text to search
     ///
