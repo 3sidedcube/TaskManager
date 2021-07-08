@@ -37,7 +37,7 @@ open class TaskManager<TaskType> where TaskType: Task {
     private var currentTask: IdentifiedTask<TaskType>?
 
     /// Latest `State`
-    public private(set) var state: State = .notStarted
+    open private(set) var state: State = .notStarted
 
     // MARK: - Init
 
