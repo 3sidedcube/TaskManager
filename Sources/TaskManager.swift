@@ -37,7 +37,11 @@ open class TaskManager<TaskType> where TaskType: Task {
     private var currentTask: IdentifiedTask<TaskType>?
 
     /// Latest `State`
-    open private(set) var state: State = .notStarted
+    private var state: State = .notStarted {
+        didSet {
+            didSetState(state)
+        }
+    }
 
     // MARK: - Init
 
@@ -143,6 +147,13 @@ open class TaskManager<TaskType> where TaskType: Task {
 
         // Complete
         state = .complete(task, result)
+    }
+
+    /// On `self.state` was set to `state`
+    ///
+    /// - Parameter state: `State`
+    open func didSetState(_ state: State) {
+        // Subclasses can override
     }
 
     // MARK: - Invalidate
