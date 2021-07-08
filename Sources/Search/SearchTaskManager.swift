@@ -11,6 +11,10 @@ import Foundation
 /// A `TaskManager` which executes `SearchTask`s
 open class SearchTaskManager<Task>: TaskManager<Task> where Task: SearchTask {
 
+    /// Default initializer
+    override public init() {
+    }
+
     /// Search the given `search` after `throttle`
     ///
     /// - Parameters:

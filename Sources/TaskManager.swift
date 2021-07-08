@@ -45,6 +45,10 @@ open class TaskManager<TaskType> where TaskType: Task {
 
     // MARK: - Init
 
+    /// Default initializer
+    public init() {
+    }
+
     /// Invalidate
     deinit {
         invalidate()
