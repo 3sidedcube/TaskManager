@@ -27,7 +27,9 @@ class SearchTaskManager<Task>: TaskManager<Task> where Task: SearchTask {
     /// Create a `Task` for `search`
     ///
     /// - Parameter search: `String`
+    // swiftlint:disable unavailable_function
     func createTask(for search: String) -> Task {
         fatalError("\(#function) is abstract, subclasses must implement")
     }
+    // swiftlint:enable unavailable_function
 }
