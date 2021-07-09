@@ -20,8 +20,11 @@ open class TaskManager<TaskType> where TaskType: Task {
         /// Invalidated task
         case invalidated(TaskType?)
 
-        /// A task is running
-        case running(TaskType)
+        /// A task is being throttled
+        case throttling(TaskType)
+
+        /// A task is executing
+        case executing(TaskType)
 
         /// A task completed with result
         case complete(TaskType, TaskType.TaskResult)
@@ -31,9 +34,6 @@ open class TaskManager<TaskType> where TaskType: Task {
     private var throttleTimer: Timer?
 
     /// Currently running task
-    ///
-    /// - Note:
-    /// A task is still considered to be "running" if it is in a throttled state (will execute after a delay)
     private var currentTask: IdentifiedTask<TaskType>?
 
     /// Latest `State`
@@ -56,7 +56,10 @@ open class TaskManager<TaskType> where TaskType: Task {
 
     // MARK: - Task
 
-    /// Is there a search task in progress
+    /// Is there a task running
+    ///
+    /// - Note:
+    /// A task is still considered to be "running" if it is in a throttled or executing state
     public var isRunning: Bool {
         return runningTask != nil
     }
@@ -75,17 +78,17 @@ open class TaskManager<TaskType> where TaskType: Task {
         _ task: TaskType,
         throttle: TimeInterval? = .defaultThrottle
     ) {
-        // Invalidate previous search
-        invalidate()
+        // Invalidate previous task
+        invalidate(updateState: false)
 
         // Set the current task
         currentTask = IdentifiedTask(taskId: nextTaskId(), task: task)
-        state = .running(task)
+        state = .throttling(task)
 
         // Check for throttling
         guard let throttle = throttle else {
-            // Do not throttle, search immediately
-            performSearch()
+            // Do not throttle, perform immediately
+            performTask()
             return
         }
 
@@ -95,7 +98,8 @@ open class TaskManager<TaskType> where TaskType: Task {
             repeats: false
         ) { [weak self] timer in
             guard timer.isValid else { return }
-            self?.performSearch()
+            // Throttle did complete
+            self?.performTask()
         }
     }
 
@@ -108,12 +112,15 @@ open class TaskManager<TaskType> where TaskType: Task {
     /// Actually execute the `currentTask`
     ///
     /// If there was a throttle, this is called after the throttle has finished.
-    private func performSearch() {
+    private func performTask() {
         // Check if there is still a task
         guard let identifiedTask = currentTask else { return }
 
         // Task to execute
         let task = identifiedTask.task
+
+        // Update state
+        state = .executing(task)
 
         // Execute the task
         task.execute { [weak self] result in
@@ -121,36 +128,14 @@ open class TaskManager<TaskType> where TaskType: Task {
             guard let self = self else { return }
 
             // Check the task is still valid
-            guard self.isValid(identifiedTask) else { return }
+            guard identifiedTask == self.currentTask else { return }
 
-            // Complete task
-            self.task(task, didCompleteWith: result)
+            // Invalidate completed task
+            self.invalidate(updateState: false)
+
+            // Complete
+            self.state = .complete(task, result)
         }
-    }
-
-    /// Check `identifiedTask` is (still) valid
-    ///
-    /// - Parameter identifiedTask: `IdentifiedTask<TaskType>`
-    private func isValid(
-        _ identifiedTask: IdentifiedTask<TaskType>
-    ) -> Bool {
-        return identifiedTask == currentTask
-    }
-
-    /// `task` did complete with `result`
-    ///
-    /// - Parameters:
-    ///   - task: `TaskType`
-    ///   - result: `TaskType.TaskResult`
-    private func task(
-        _ task: TaskType,
-        didCompleteWith result: TaskType.TaskResult
-    ) {
-        // Invalidate completed task
-        invalidate()
-
-        // Complete
-        state = .complete(task, result)
     }
 
     /// On `self.state` was set to `state`
@@ -162,10 +147,17 @@ open class TaskManager<TaskType> where TaskType: Task {
 
     // MARK: - Invalidate
 
-    /// Invalidate search task
+    /// Invalidate running task
     open func invalidate() {
-        // Remove current search
-        let previousTask = currentTask
+        invalidate(updateState: true)
+    }
+
+    /// Invalidate running task
+    ///
+    /// - Parameter updateState: `Bool` update `state`
+    private func invalidate(updateState: Bool) {
+        // Remove current task
+        let previousTask = currentTask?.task
         currentTask = nil
 
         // Invalidate timer
@@ -173,6 +165,8 @@ open class TaskManager<TaskType> where TaskType: Task {
         throttleTimer = nil
 
         // Update state
-        state = .invalidated(previousTask?.task)
+        if updateState {
+            state = .invalidated(previousTask)
+        }
     }
 }
