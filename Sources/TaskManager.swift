@@ -37,7 +37,7 @@ open class TaskManager<TaskType> where TaskType: Task {
     private var currentTask: IdentifiedTask<TaskType>?
 
     /// Latest `State`
-    private var state: State = .notStarted {
+    public private(set) var state: State = .notStarted {
         didSet {
             didSetState(state)
         }
