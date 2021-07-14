@@ -1,4 +1,4 @@
-# Task
+# TaskManager
 
 Simple library to manage and throttle `Task`s.
 

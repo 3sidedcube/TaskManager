@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Task::Task"
-               BuildableName = "Task.framework"
-               BlueprintName = "Task"
-               ReferencedContainer = "container:Task.xcodeproj">
+               BlueprintIdentifier = "TaskManager::TaskManager"
+               BuildableName = "TaskManager.framework"
+               BlueprintName = "TaskManager"
+               ReferencedContainer = "container:TaskManager.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Task::TaskTests"
-               BuildableName = "TaskTests.xctest"
-               BlueprintName = "TaskTests"
-               ReferencedContainer = "container:Task.xcodeproj">
+               BlueprintIdentifier = "TaskManager::TaskManagerTests"
+               BuildableName = "TaskManagerTests.xctest"
+               BlueprintName = "TaskManagerTests"
+               ReferencedContainer = "container:TaskManager.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

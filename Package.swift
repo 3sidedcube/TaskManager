@@ -4,28 +4,28 @@
 import PackageDescription
 
 let package = Package(
-    name: "Task",
+    name: "TaskManager",
     platforms: [
         .iOS(.v13),
         .macOS(.v10_12)
     ],
     products: [
         .library(
-            name: "Task",
-            targets: ["Task"]
+            name: "TaskManager",
+            targets: ["TaskManager"]
         )
     ],
     dependencies: [
     ],
     targets: [
         .target(
-            name: "Task",
+            name: "TaskManager",
             dependencies: [],
             path: "Sources"
         ),
         .testTarget(
-            name: "TaskTests",
-            dependencies: ["Task"]
+            name: "TaskManagerTests",
+            dependencies: ["TaskManager"]
         )
     ]
 )
