@@ -21,9 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		B814995E270E46EF00AAAF67 /* ThrottleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B814995B270E46EF00AAAF67 /* ThrottleTests.swift */; };
-		B814995F270E46EF00AAAF67 /* TestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B814995C270E46EF00AAAF67 /* TestTask.swift */; };
-		B8149960270E46EF00AAAF67 /* TestTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B814995D270E46EF00AAAF67 /* TestTaskManager.swift */; };
 		B8149963270E4F6700AAAF67 /* Task+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8149961270E4F5B00AAAF67 /* Task+Extension.swift */; };
 		OBJ_29 /* TimeInterval+Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* TimeInterval+Values.swift */; };
 		OBJ_30 /* UInt64+Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* UInt64+Id.swift */; };
@@ -54,10 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B814995B270E46EF00AAAF67 /* ThrottleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrottleTests.swift; sourceTree = "<group>"; };
-		B814995C270E46EF00AAAF67 /* TestTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTask.swift; sourceTree = "<group>"; };
-		B814995D270E46EF00AAAF67 /* TestTaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTaskManager.swift; sourceTree = "<group>"; };
 		B8149961270E4F5B00AAAF67 /* Task+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Extension.swift"; sourceTree = "<group>"; };
+		B8149966270E560E00AAAF67 /* TaskManagerTests */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TaskManagerTests; path = Tests/TaskManagerTests; sourceTree = "<group>"; };
 		OBJ_10 /* UInt64+Id.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt64+Id.swift"; sourceTree = "<group>"; };
 		OBJ_11 /* IdentifiedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiedTask.swift; sourceTree = "<group>"; };
 		OBJ_13 /* SearchTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTask.swift; sourceTree = "<group>"; };
@@ -102,9 +97,7 @@
 		OBJ_17 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				B814995C270E46EF00AAAF67 /* TestTask.swift */,
-				B814995D270E46EF00AAAF67 /* TestTaskManager.swift */,
-				B814995B270E46EF00AAAF67 /* ThrottleTests.swift */,
+				B8149966270E560E00AAAF67 /* TaskManagerTests */,
 			);
 			name = Tests;
 			sourceTree = SOURCE_ROOT;
@@ -285,9 +278,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				B814995F270E46EF00AAAF67 /* TestTask.swift in Sources */,
-				B814995E270E46EF00AAAF67 /* ThrottleTests.swift in Sources */,
-				B8149960270E46EF00AAAF67 /* TestTaskManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

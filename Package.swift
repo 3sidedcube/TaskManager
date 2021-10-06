@@ -25,8 +25,7 @@ let package = Package(
         ),
         .testTarget(
             name: "TaskManagerTests",
-            dependencies: ["TaskManager"],
-            path: "Tests"
+            dependencies: ["TaskManager"]
         )
     ]
 )
