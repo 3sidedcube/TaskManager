@@ -14,6 +14,10 @@ public protocol Task {
 
     /// Execute the task calling `completion` when finished
     ///
+    /// - Note:
+    /// When called by a `TaskManager`, the completion closure is called
+    /// on the main thread
+    ///
     /// - Parameters:
     ///   - completion: Completion closure
     func execute(completion: @escaping (TaskResult) -> Void)

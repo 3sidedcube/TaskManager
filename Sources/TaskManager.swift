@@ -43,6 +43,12 @@ open class TaskManager<TaskType> where TaskType: Task {
         }
     }
 
+    /// Called when the `state` is set
+    open var onDidSetState: ((State) -> Void)?
+
+    /// Called when `TaskType` competed
+    open var onTaskComplete: ((TaskType, TaskType.TaskResult) -> Void)?
+
     // MARK: - Init
 
     /// Default initializer
@@ -123,7 +129,7 @@ open class TaskManager<TaskType> where TaskType: Task {
         state = .executing(task)
 
         // Execute the task
-        task.execute { [weak self] result in
+        task.executeOnMain { [weak self] result in
             // Check still in memory
             guard let self = self else { return }
 
@@ -135,6 +141,9 @@ open class TaskManager<TaskType> where TaskType: Task {
 
             // Complete
             self.state = .complete(task, result)
+
+            // Call completion handler
+            self.onTaskComplete?(task, result)
         }
     }
 
@@ -142,6 +151,7 @@ open class TaskManager<TaskType> where TaskType: Task {
     ///
     /// - Parameter state: `State`
     open func didSetState(_ state: State) {
+        onDidSetState?(state)
         // Subclasses can override
     }
 
