@@ -14,6 +14,9 @@ import Foundation
 struct TestTask: Task {
     typealias TaskResult = Date
 
+    /// `UUID`
+    let uuid: UUID
+
     /// `TimeInterval` to wait before completing with the current `Date`
     let wait: TimeInterval
 
@@ -25,12 +28,15 @@ struct TestTask: Task {
     /// Initialize the given `TimeInterval` to wait
     ///
     /// - Parameters:
+    ///   - uuid: `UUID`
     ///   - waitSeconds: `TimeInterval`
     ///   - completionQueue: `DispatchQueue`
     init(
+        uuid: UUID = UUID(),
         wait: TimeInterval = 0,
         completionQueue: DispatchQueue = .main
     ) {
+        self.uuid = uuid
         self.wait = wait
         self.completionQueue = completionQueue
     }

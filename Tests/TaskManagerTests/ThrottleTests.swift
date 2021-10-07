@@ -40,4 +40,57 @@ final class ThrottleTests: XCTestCase {
         let diff = endDate.timeIntervalSince(startDate)
         XCTAssertTrue(diff >= total)
     }
+
+    /// TODO: WIP
+    /// Test the throttle of `TaskManager`
+    func testInvalidation() {
+        let expectation = XCTestExpectation()
+        let finalTaskUUID = UUID()
+
+        // Create TaskManager and execute Task
+        let taskManager = TestTaskManager()
+        taskManager.onTaskComplete = { task, _ in
+            XCTAssertEqual(task.uuid, finalTaskUUID)
+        }
+        taskManager.execute(TestTask(wait: 1), throttle: 2)
+
+        // Should interrupt throttle
+        runAfter(1) {
+            taskManager.execute(TestTask(wait: 1), throttle: 1.1)
+        }
+
+        // Should interrupt throttle again
+        runAfter(1) {
+            taskManager.execute(TestTask(wait: 2), throttle: 1)
+        }
+
+        // Should interrupt task
+        runAfter(2) {
+            taskManager.execute(TestTask(wait: 2), throttle: 1)
+        }
+
+        // Should task again
+        runAfter(2) {
+            taskManager.execute(TestTask(wait: 2), throttle: 1)
+        }
+
+        taskManager.execute(TestTask(wait: 2), throttle: 2)
+
+        wait(for: [expectation], timeout: 100)
+    }
+
+    private func runAfter(
+        _ timeInterval: TimeInterval,
+        on queue: DispatchQueue = .main,
+        execute: @escaping () -> Void
+    ) {
+        let expectation = expectation(description: "\(#function)")
+
+        queue.asyncAfter(deadline: .now() + timeInterval) {
+            execute()
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: timeInterval + 1)
+    }
 }
