@@ -8,20 +8,30 @@
 
 import Foundation
 
-/// A `Task` with a `UInt64` Id
+/// A `Task` with a `UUID` ID
 public struct IdentifiedTask<Task> {
 
-    /// `UInt64` identifier of the task
-    public let taskId: UInt64
+    /// `UUID` identifier of the task
+    public let taskId: UUID
 
-    /// The `Task`
+    /// `Task`
     public let task: Task
+
+    /// Default memberwise initializer
+    /// - Parameters:
+    ///   - taskId: `UUID`
+    ///   - task: `Task`
+    public init(taskId: UUID = UUID(), task: Task) {
+        self.taskId = taskId
+        self.task = task
+    }
 }
 
 // MARK: - Equatable
 
 extension IdentifiedTask: Equatable {
 
+    /// - Returns: Whether the `taskId` is the same for `lhs` and `rhs`
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.taskId == rhs.taskId
     }

@@ -75,7 +75,9 @@ open class TaskManager<TaskType> where TaskType: Task {
         return currentTask?.task
     }
 
-    /// Execute `task` after `throttle`
+    /// Execute `task` after `throttle`.
+    ///
+    /// The current task will be cancelled.
     ///
     /// - Parameters:
     ///   - task: `TaskType` to execute
@@ -88,7 +90,7 @@ open class TaskManager<TaskType> where TaskType: Task {
         invalidate(updateState: false)
 
         // Set the current task
-        currentTask = IdentifiedTask(taskId: nextTaskId(), task: task)
+        currentTask = IdentifiedTask(task: task)
         state = .throttling(task)
 
         // Check for throttling
@@ -107,12 +109,6 @@ open class TaskManager<TaskType> where TaskType: Task {
             // Throttle did complete
             self?.performTask()
         }
-    }
-
-    /// Get the next task ID
-    private func nextTaskId() -> UInt64 {
-        let nextTaskId = currentTask?.taskId.incrementing(initial: .firstTaskId)
-        return nextTaskId ?? .firstTaskId
     }
 
     /// Actually execute the `currentTask`

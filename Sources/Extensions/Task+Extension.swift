@@ -18,12 +18,8 @@ extension Task {
         completion: @escaping (TaskResult) -> Void
     ) {
         execute { result in
-            if Thread.current.isMainThread {
+            DispatchQueue.executeOnMain {
                 completion(result)
-            } else {
-                DispatchQueue.main.async {
-                    completion(result)
-                }
             }
         }
     }

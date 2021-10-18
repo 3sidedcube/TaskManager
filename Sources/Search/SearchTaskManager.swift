@@ -8,7 +8,9 @@
 
 import Foundation
 
-/// A `TaskManager` which executes `SearchTask`s
+/// A `TaskManager` which executes `SearchTask`s.
+///
+/// Subclasses should override `createTask(for:)`
 open class SearchTaskManager<Task>: TaskManager<Task> where Task: SearchTask {
 
     /// Default initializer
