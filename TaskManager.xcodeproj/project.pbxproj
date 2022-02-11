@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		B839E43027B65F2D002B290E /* Throttle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B839E42F27B65F2D002B290E /* Throttle.swift */; };
 		OBJ_29 /* TimeInterval+Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* TimeInterval+Values.swift */; };
 		OBJ_30 /* UInt64+Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* UInt64+Id.swift */; };
 		OBJ_31 /* IdentifiedTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* IdentifiedTask.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B839E42F27B65F2D002B290E /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
 		OBJ_10 /* UInt64+Id.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt64+Id.swift"; sourceTree = "<group>"; };
 		OBJ_11 /* IdentifiedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiedTask.swift; sourceTree = "<group>"; };
 		OBJ_13 /* SearchTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTask.swift; sourceTree = "<group>"; };
@@ -119,7 +121,7 @@
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -128,7 +130,6 @@
 				OBJ_20 /* Products */,
 				OBJ_23 /* README.md */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -139,6 +140,7 @@
 				OBJ_12 /* Search */,
 				OBJ_15 /* Task.swift */,
 				OBJ_16 /* TaskManager.swift */,
+				B839E42F27B65F2D002B290E /* Throttle.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -219,7 +221,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_20 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -265,6 +267,7 @@
 				OBJ_33 /* SearchTaskManager.swift in Sources */,
 				OBJ_34 /* Task.swift in Sources */,
 				OBJ_35 /* TaskManager.swift in Sources */,
+				B839E43027B65F2D002B290E /* Throttle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
